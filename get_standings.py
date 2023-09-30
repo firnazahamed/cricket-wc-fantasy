@@ -2,19 +2,8 @@ import os
 import pandas as pd
 import numpy as np
 
-from helpers import upload_df_to_gcs
+from helpers import upload_df_to_gcs, retrieve_scorecards
 from settings import weeks, owner_team_dict, player_id_dict
-
-
-def retrieve_scorecards():
-    scorcard_sheets = sorted(os.listdir("./Scorecards/"))
-    scorecards = {}
-    for scorecard_sheet in scorcard_sheets:
-        if not scorecard_sheet.startswith("."):  # Ignore hidden files like .DS_Store
-            scorecard = pd.read_csv(f"./Scorecards/{scorecard_sheet}")
-            scorecard_name = scorecard_sheet.split(".csv")[0]
-            scorecards[scorecard_name] = scorecard
-    return scorecards
 
 
 def retrieve_team_info():
