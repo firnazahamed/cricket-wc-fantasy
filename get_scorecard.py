@@ -169,16 +169,17 @@ def get_scorecard(series_id, match_id):
         .apply(lambda x: int(x[0]) * 6 + int(x[1]) if len(x) > 1 else int(x[0]) * 6)
     )
 
-    bowler_df["base_points"] = 20 * bowler_df["Wickets"]
-    bowler_df["pace_points"] = 1.5 * bowler_df["Balls"] - bowler_df["Runs"]
+    bowler_df["base_points"] = 30 * bowler_df["Wickets"]
+    bowler_df["pace_points"] = bowler_df["Balls"] - bowler_df["Runs"]
     bowler_df["pace_points"] = (
-        bowler_df["pace_points"]
-        + (bowler_df.loc[:, "pace_points"] > 0) * bowler_df["pace_points"]
+        bowler_df["pace_points"].apply(lambda x: x * 2 if x > 0 else x / 2)
     ).astype(int)
     bowler_df["milestone_points"] = bowler_df["Wickets"].replace(
-        {1: 0, 2: 5, 3: 15, 4: 30, 5: 50, 6: 50, 7: 50, 8: 50}
+        {1: 0, 2: 10, 3: 25, 4: 45, 5: 70, 6: 100, 7: 100, 8: 100}
     )
-    bowler_df["impact_points"] = bowler_df["Dots"] + bowler_df["Maidens"] * 25
+    bowler_df["impact_points"] = (
+        0.5 * bowler_df["Dots"] + bowler_df["Maidens"] * 10
+    ).astype(int)
     bowler_df["bowling_points"] = (
         bowler_df["base_points"]
         + bowler_df["pace_points"]
@@ -192,8 +193,11 @@ def get_scorecard(series_id, match_id):
     batsmen_df["6s"] = batsmen_df["6s"].astype(int)
     batsmen_df["base_points"] = batsmen_df["Runs"]
     batsmen_df["pace_points"] = batsmen_df["Runs"] - batsmen_df["Balls"]
+    batsmen_df["pace_points"] = (
+        batsmen_df["pace_points"].apply(lambda x: x * 2 if x > 0 else x / 2)
+    ).astype(int)
     batsmen_df["milestone_points"] = (np.floor(batsmen_df["Runs"] / 25)).replace(
-        {1.0: 5, 2.0: 15, 3.0: 30, 4.0: 50, 5.0: 50, 6.0: 50, 7.0: 50, 8.0: 50}
+        {1.0: 10, 2.0: 25, 3.0: 45, 4.0: 70, 5.0: 70, 6.0: 100, 7.0: 100, 8.0: 100}
     )
     batsmen_df["impact_points"] = (
         batsmen_df["4s"]
