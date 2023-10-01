@@ -288,7 +288,7 @@ def get_scorecard(series_id, match_id):
     ):
         if "Player Of The Match" in item.text:
             mom_id = item.find("a")["href"].split("-")[-1]
-    fielder_df.loc[fielder_df["Player_id"] == mom_id, "bonus_points"] += 25
+            fielder_df.loc[fielder_df["Player_id"] == mom_id, "bonus_points"] += 25
 
     ### Winning team points
     if table_body[4].find_all("tr")[-1].find_all("td")[0].text == "Points":

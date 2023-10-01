@@ -1,13 +1,3 @@
-weeks = {
-    "Week1": {"matches": [str(1384392 + i) for i in range(10)]},
-    "Week2": {"matches": [str(1384392 + i) for i in range(10, 19)]},
-    "Week3": {"matches": [str(1384392 + i) for i in range(19, 29)]},
-    "Week4": {"matches": [str(1384392 + i) for i in range(29, 38)]},
-    "Week5": {"matches": [str(1384392 + i) for i in range(38, 48)]},
-    "Week6": {"matches": [str(1384392 + i) for i in range(48, 57)]},
-    "Week7": {"matches": [str(1384392 + i) for i in range(57, 70)]},
-}
-
 owner_team_dict = {
     "Mabbu": "Malayoor Mambattiyaans",
     "Siddhu": "Thalapathies",
