@@ -192,7 +192,7 @@ def get_scorecard(series_id, match_id):
     batsmen_df["4s"] = batsmen_df["4s"].astype(int)
     batsmen_df["6s"] = batsmen_df["6s"].astype(int)
     batsmen_df["base_points"] = batsmen_df["Runs"]
-    batsmen_df["pace_points"] = batsmen_df["Runs"] - batsmen_df["Balls"]
+    batsmen_df["pace_points"] = batsmen_df["Runs"] - 0.9 * batsmen_df["Balls"]
     batsmen_df["pace_points"] = (
         batsmen_df["pace_points"].apply(lambda x: x * 2 if x > 0 else x / 2)
     ).astype(int)

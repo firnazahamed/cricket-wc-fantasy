@@ -10,8 +10,6 @@ def retrieve_team_info():
     sheet_titles = [
         c for c in os.listdir("./Squads/") if not c.startswith(".")
     ]  # Ignore hidden files like .DS_Store
-    print(sheet_titles)
-    print("Hello")
     match_squad_dicts = {}
     squad_df = pd.DataFrame()
     for sheet_title in sheet_titles:
