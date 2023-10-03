@@ -3,7 +3,7 @@ import pandas as pd
 from helpers import get_client, read_file
 
 client = get_client()
-bucket_name = "summer-is-coming-2023"
+bucket_name = "wc-2023"
 
 scorecards = sorted(
     [
