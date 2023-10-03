@@ -3,24 +3,18 @@ import pandas as pd
 from helpers import get_client, read_file
 
 client = get_client()
-bucket_name = "summer-is-coming-2023"
+bucket_name = "wc-2023"
 
-for blob in client.list_blobs(bucket_name, prefix="Squads"):
+squads = sorted(
+    [
+        blob.name.strip("Squads/").strip("_squad.csv")
+        for blob in client.list_blobs(bucket_name, prefix="Squads")
+    ],
+    reverse=True,
+)
 
-    # df = pd.read_csv(blob.name)
-    df = read_file(bucket_name, blob.name)
-    st.header(blob.name.split("Squads/")[1].strip(".csv"))
-    st.dataframe(df)
+option = st.selectbox("Select match id", squads)
 
-
-@st.cache_data(ttl=600)
-def load_data(sheets_url):
-    csv_url = sheets_url.replace("/edit#gid=", "/export?format=csv&gid=")
-    return pd.read_csv(csv_url)
-
-
-# print(st.secrets["type"])
-df = load_data(st.secrets["public_gsheets_url"])
-
-st.header("Squad from GSheets")
-st.dataframe(df)
+squad_df = read_file(bucket_name, f"Squads/{option}_squad.csv")
+st.subheader("Squad")
+st.dataframe(squad_df)
