@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import os
-import gspread
 from google.oauth2 import service_account
 from google.cloud import storage
 from io import BytesIO
@@ -57,6 +56,7 @@ def retrieve_scorecards():
 
 def download_gsheet_as_csv(spreadsheet_url, sheet_name, download_folder="Squads"):
 
+    import gspread
     from settings import service_account_credentials
 
     # Authenticate with Google Sheets using your service account credentials
