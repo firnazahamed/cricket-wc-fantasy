@@ -123,6 +123,13 @@ def create_score_df(
         game_cols[game]: "Match_" + str(game + 1) for game in range(len(game_cols))
     }
     score_df = score_df.rename(columns=game_map)
+    score_df.insert(
+        loc=3,
+        column="Overall",
+        value=score_df[[c for c in score_df.columns if c.startswith("Match")]]
+        .replace({"": 0})
+        .sum(axis=1),
+    )
 
     sum_df = (
         score_df.replace(r"^\s*$", 0, regex=True)
